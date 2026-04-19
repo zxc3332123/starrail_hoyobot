@@ -17,7 +17,7 @@ jobs:
       - name: Run Bot
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: python genshin_bot.py
+        run: python StarRail_bot.py
       - name: Save Memory
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
