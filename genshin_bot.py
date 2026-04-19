@@ -3,13 +3,13 @@ import requests
 import json
 
 # --- 設定區 ---
-GENSHIN_UID = "1015537" # 原神官方帳號 UID
+StarRail_UID = "172534910"
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
-MEMORY_FILE = "genshin_memory.json"
+MEMORY_FILE = "StarRail_memory.json"
 
-def get_genshin_posts():
+def get_starrail_posts():
     """透過 API 抓取 HoYoLAB 上的貼文"""
-    api_url = f"https://bbs-api-os.hoyolab.com/community/post/wapi/userPost?uid={GENSHIN_UID}"
+    api_url = f"https://bbs-api-os.hoyolab.com/community/post/wapi/userPost?uid={StarRail_UID}"
     try:
         res = requests.get(api_url)
         data = res.json()
@@ -27,7 +27,7 @@ else:
     memory = {"last_id": ""}
 
 # 2. 巡邏
-posts = get_genshin_posts()
+posts = get_starrail_posts()
 if posts:
     latest_post = posts[0]
     post_id = latest_post["post"]["post_id"]
@@ -38,16 +38,16 @@ if posts:
 
     # 3. 比對 ID，如果是新貼文
     if memory.get("last_id") != post_id:
-        print(f"發現原神新貼文: {title}")
+        print(f"發現崩鐵新貼文: {title}")
         
         payload = {
             "embeds": [{
-                "title": "🍀 《原神》HoYoLAB 最新情報",
-                "description": f"「旅行者，派蒙給你帶新消息來了！派蒙要吃甜甜花釀雞啦！🤤」\n\n**{title}**",
+                "title": "🚂 《崩壞：星穹鐵道》最新情報",
+                "description": f"「開拓者，快來看看三月拍到了什麼!📸」\n\n**{title}**",
                 "url": link,
-                "color": 65490, # 原神翠綠色
+                "color": 16768768, 
                 "image": {"url": img_url},
-                "footer": {"text": "提瓦特情報站 · 派蒙待命中"}
+                "footer": {"text": "星鐵情報站 · 三月七攝影中"}
             }]
         }
         
