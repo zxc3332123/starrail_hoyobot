@@ -1,0 +1,24 @@
+name: StarRail News Bot
+
+on:
+  schedule:
+    - cron: '0 * * * *' 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install -r requirements.txt
+      - name: Run Bot
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python genshin_bot.py
+      - name: Save Memory
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update Genshin memory
